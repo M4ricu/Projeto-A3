@@ -8,4 +8,7 @@ Descrição: Criação de um sistema de e-commerce simples com micro-serviços p
 
 
 Será feito pelo VSCode, usando JAVA, HTML, JS, CSS e MySQL
-Mariana Oliveira Santos
+
+
+Mariana Oliveira Santos 
+RA: 1252325935
