@@ -1,0 +1,58 @@
+package com.m4ricu.single.service;
+
+import com.m4ricu.single.model.Artist;
+import com.m4ricu.single.repository.ArtistRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
+
+
+@ExtendWith(MockitoExtension.class)
+class ArtistServiceTest {
+
+    @Mock
+    private ArtistRepository artistRepository;
+
+    @InjectMocks
+    private ArtistService artistService;
+
+    @Test
+    void testGetRandomArtist() {
+        Artist artist = new Artist();
+        when(artistRepository.findRandomArtist()).thenReturn(Optional.of(artist));
+        Artist result = artistService.getRandomArtist();
+        assertEquals(artist, result);
+    }
+
+    @Test
+    void testGetAllArtist() {
+        List<Artist> artists = List.of(new Artist(), new Artist());
+        when(artistRepository.findAllArtists()).thenReturn(artists);
+        List<Artist> result = artistService.getAllArtist();
+        assertEquals(artists, result);
+    }
+
+    @Test
+    void testGetArtistById_Success() {
+        Long artistId = 1L;
+        Artist artist = new Artist();
+        when(artistRepository.findById(artistId)).thenReturn(Optional.of(artist));
+        Artist result = artistService.getArtistById(artistId);
+        assertEquals(artist, result);
+    }
+
+    @Test
+    void testGetArtistById_NotFound() {
+        Long artistId = 1L;
+        when(artistRepository.findById(artistId)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> artistService.getArtistById(artistId));
+    }
+}
